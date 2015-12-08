@@ -22,4 +22,23 @@ Rowe et al. 2008, ApJ, 689, 1345
 
 Full documentation is a work in progress, but feel free to ask.
 
-allMOST: 
+allMOST: aperture and PSF extraction for subrastered FITS files for the
+MOST mission.  This is probably the code you are looking for! 
+
+mostfit3: Attempts to decorrelate sky-background and flux-values.  This
+is a necessary step due to non-linear behaviour between incident flux and
+background levels.  
+
+mostfit4: Does a simulateous fit to the sky-background and centroid 
+position relative to the aperture flux for decorrelation.
+
+orbitremove: Does a brute-force removal of power at the MOST orbital 
+frequency.
+
+autocut: Examines PSF-shape and flux scatter to select the best data for
+analysis
+
+winsigclip: Performs sigma-clipping on a pre-defined window size.
+
+
+
