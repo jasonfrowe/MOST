@@ -1,0 +1,75 @@
+# Makefile Template
+F90 = @FC@
+LFLAGS = @LFLAGS@
+XFLAGS = @XFLAGS@
+PFLAGS = @PGPLOTLIB@
+CFLAGS = @CFITSIOLIB@
+FFLAGS = -O3
+BIN = ./bin/
+UTILS = utils/
+
+all: mostfit4 mostfit3 allMOST mostper orbitremove autocut winsigclip
+
+
+allMOSTincl = fitsreader.o fitsdataio.o fabphot.o findpeaks2.o
+allMOST: allMOST/allmost.f $(allMOSTincl)
+	$(F90) $(FFLAGS) -o $(BIN)$@ allMOST/allmost.f $(allMOSTincl) $(LFLAGS) $(XFLAGS) $(CFLAGS) $(PFLAGS)
+		
+mostfit4: mostfit3/mostfit4.f
+	$(F90) $(FFLAGS) -o $(BIN)$@ mostfit3/mostfit4.f $(LFLAGS) $(XFLAGS) $(PFLAGS)
+		
+mostfit3incl = dataio.o timedomain.o mathroutines.o nr.o skyremove.o graphics.o magpixel.o
+mostfit3: mostfit3/mostfit3.f $(mostfit3incl)
+	$(F90) $(FFLAGS) -o $(BIN)$@ mostfit3/mostfit3.f $(mostfit3incl) $(LFLAGS) $(XFLAGS) $(PFLAGS)
+	
+mostper: mostper/mostper.f
+	$(F90) $(FFLAGS) -o $(BIN)$@ mostper/mostper.f $(LFLAGS) $(XFLAGS) $(PFLAGS)
+	
+orbitremoveincl = dataio.o mathroutines.o nr.o
+orbitremove: mostfit3/orbitremove.f $(orbitremoveincl)
+	$(F90) $(FFLAGS) -o $(BIN)$@ mostfit3/orbitremove.f $(orbitremoveincl)
+		
+autocut: mostfit3/autocut.f
+	$(F90) $(FFLAGS) -o $(BIN)$@ mostfit3/autocut.f $(LFLAGS) $(XFLAGS) $(PFLAGS)
+	
+winsigclipincl = dataio.o mathroutines.o nr.o
+winsigclip: mostfit3/winsigclip.f $(winsigclipincl)
+	$(F90) $(FFLAGS) -o $(BIN)$@ mostfit3/winsigclip.f $(winsigclipincl)
+	
+#building object libraries
+
+mathroutines.o: $(UTILS)mathroutines.f
+	$(F90) -c $(FFLAGS) $(UTILS)mathroutines.f
+timedomain.o: $(UTILS)timedomain.f
+	$(F90) -c $(FFLAGS) $(UTILS)timedomain.f
+nr.o: $(UTILS)nr.f
+	$(F90) -c $(FFLAGS) $(UTILS)nr.f
+graphics.o: $(UTILS)graphics.f
+	$(F90) -c $(FFLAGS) $(UTILS)graphics.f
+fit.o: $(UTILS)fit.f
+	$(F90) -c $(FFLAGS) $(UTILS)fit.f
+dataio.o: $(UTILS)dataio.f
+	$(F90) -c $(FFLAGS) $(UTILS)dataio.f
+skyremove.o: $(UTILS)skyremove.f
+	$(F90) -c $(FFLAGS) $(UTILS)skyremove.f
+fitsdataio.o: $(UTILS)fitsdataio.f
+	$(F90) -c $(FFLAGS) $(UTILS)fitsdataio.f
+fitsreader.o: allMOST/fitsreader.f
+	$(F90) -c $(FFLAGS) allMOST/fitsreader.f
+magpixel.o:	$(UTILS)magpixel.f
+	$(F90) -c $(FFLAGS) $(UTILS)magpixel.f
+fabphot.o: allMOST/fabphot.f
+	$(F90) -c $(FFLAGS) allMOST/fabphot.f
+lcurvefit.o: hd209458/lcurvefit.f
+	$(F90) -c $(FFLAGS) hd209458/lcurvefit.f
+transitutil.o: $(UTILS)transitutil.f
+	$(F90) -c $(FFLAGS) $(UTILS)transitutil.f
+findpeaks2.o: allMOST/findpeaks2.f
+	$(F90) -c $(FFLAGS) allMOST/findpeaks2.f
+	
+# Removing object files
+.PHONY : clean
+clean :
+	rm *.o
+	
+	

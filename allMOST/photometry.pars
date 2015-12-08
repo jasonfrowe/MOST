@@ -1,0 +1,18 @@
+#####################################
+# allMOST Photometry Parameter file #
+#####################################
+#please follow this format (for now)
+#2345678x12345
+#command value
+ifun     6            #sets function to fit.  Current 5=Gaussian, 6=Moffat.
+prad     15.0         #sets radius to sum up photometry from PSF fit.
+rad      6.0          #radius for aperature photometry.
+skyrad   6.0          #radius for sky determination. Pixels outside this distance to centroid included.
+fitsky   0            #if the sky is to fit with the PSF. 0=no, 1=yes.
+fitrad   3.0          #fitting radius.  Pixels within this distance to centroid included in fit.
+sint     1            #how to handle saturation.  0=skip frame,1=fit wings of star.
+basename etaboo       #basename for output photometry files.
+gain     6.1          #gain in e/ADU.
+rnoise   1.1          #read noise in ADU.
+listname files.list   #file contain list of fits files to extract photometry from.
+flatfile flat.dat     #file contain flatfield information.
