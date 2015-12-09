@@ -1,7 +1,7 @@
 C        1         2         3         4         5         6         7
 C23456789012345678901234567890123456789012345678901234567890123456789012
       program allmost
-C     Writen by Jason Rowe (rowe@astro.ubc.ca)
+C     Writen by Jason Rowe (jasonfrowe@gmail.com)
 C     Last Updated: 20110622
 C     Performs photometry on MOST SDS2 fits files.
 
