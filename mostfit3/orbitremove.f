@@ -371,8 +371,8 @@ c         call pgsci(3)
 c         call pgpt1(0.5,y,10)
 c         call pgsci(1)
          mag(i)=mag(i)-y+avgbin
-         write(12,502) time(i),mag(i),y
- 502     format(F13.8,1X,2(F9.6,1X))
+         write(12,502) time(i),mag(i),y,avgbin
+ 502     format(F13.8,1X,3(F9.6,1X))
  10   continue
       close(12)
  
